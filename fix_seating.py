@@ -5,6 +5,8 @@ import csv
 
 EMAIL_COLUMN = 0
 NAME_COLUMN = 1
+LEFTY_COLUMN = 4
+RIGHTY_COLUMN = 5
 
 parser = argparse.ArgumentParser(description="Read in filters for seating sheet.")
 parser.add_argument("sheet", type=str, nargs=1, help="name of seating sheet to modify")

@@ -2,13 +2,14 @@ import os.path
 
 EMAIL_COLUMN = 0
 NAME_COLUMN = 1
+LEFTY_COLUMN = 4
+RIGHTY_COLUMN = 5
 
 def remove_students(sheet_rows, emails_file):
     emails = []
     with open(emails_file, "r") as emails_list:
         for email in emails_list:
             emails.append(email.strip('\n').lower())
-
     emails = list(set(emails))
 
     # for row_i in range(len(sheet_rows)):
@@ -18,6 +19,7 @@ def remove_students(sheet_rows, emails_file):
 
     num_removed = 0
     missing = []
+    removed = []
     for email in emails:
         found_indices = []
         for row_i in range(len(sheet_rows)):
@@ -29,8 +31,9 @@ def remove_students(sheet_rows, emails_file):
             missing.append(email)
         elif len(found_indices) == 1:
             num_removed += 1
-            removed = sheet_rows.pop(found_indices[0])
-            print("Removed row", found_indices[0], "with email", email, "and name", removed[NAME_COLUMN])
+            removed.append(sheet_rows.pop(found_indices[0])[EMAIL_COLUMN])
+            student = sheet_rows.pop(found_indices[0])
+            print("Removed row", found_indices[0], "with email", email, "and name", student[NAME_COLUMN])
         else:
             print("Found multiple", email, "- skipping")
 
@@ -40,4 +43,7 @@ def remove_students(sheet_rows, emails_file):
         for m in missing:
             missing_students.write(m + "\n")
     
+    with open(os.path.join("remove", "removed.txt"), "w") as removed_students:
+        for r in removed:
+            removed_students.write(r + "\n")
     return sheet_rows
