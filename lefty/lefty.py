@@ -39,7 +39,7 @@ def switch_lefty(sheet_rows, emails_file):
             row = sheet_rows[found_indices[0]]
             row[LEFTY_COLUMN] = "TRUE"
             row[RIGHTY_COLUMN] = ""
-            swapped.append(sheet_rows.pop(found_indices[0])[EMAIL_COLUMN])
+            swapped.append(sheet_rows[found_indices[0]][EMAIL_COLUMN])
             print("Changing row", found_indices[0], "with email", email, "and name", row[NAME_COLUMN], "to lefty")
         else:
             print("Found multiple", email, "- skipping")
