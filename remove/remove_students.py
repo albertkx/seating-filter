@@ -31,8 +31,8 @@ def remove_students(sheet_rows, emails_file):
             missing.append(email)
         elif len(found_indices) == 1:
             num_removed += 1
-            removed.append(sheet_rows.pop(found_indices[0])[EMAIL_COLUMN])
             student = sheet_rows.pop(found_indices[0])
+            removed.append(student[EMAIL_COLUMN])
             print("Removed row", found_indices[0], "with email", email, "and name", student[NAME_COLUMN])
         else:
             print("Found multiple", email, "- skipping")
